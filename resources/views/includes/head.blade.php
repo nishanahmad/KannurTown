@@ -1,0 +1,28 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="">
+<meta name="author" content="Dashboard">
+<meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
+<title>Kannur Town</title>
+
+<!-- Favicons -->
+<link href="{{ asset('images/favicon.png') }}" rel="icon">
+<link href="{{ asset('images/apple-touch-icon.png') }}" rel="apple-touch-icon">
+
+<!-- Bootstrap core CSS -->
+<link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
+<link href="{{ asset('css/font-awesome.min.css') }}" rel="stylesheet">
+<link href="{{ asset('css/font-awesome.min.css') }}" rel="stylesheet">
+<link href="{{ asset('css/jquery.gritter.css') }}" rel="stylesheet">
+<link href="{{ asset('css/dashio.css') }}" rel="stylesheet">
+<link href="{{ asset('css/dashio-responsive.css') }}" rel="stylesheet">
+
+<script type="text/javascript" src="{{ asset('js/jquery.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/bootstrap.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/jquery.scrollTo.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/jquery.nicescroll.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/jquery.sparkline.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/common-scripts.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/jquery.gritter.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/gritter-conf.js') }}"></script>
+<script class="include" type="text/javascript" src="{{ asset('js/jquery.dcjqaccordion.2.7.js') }}"></script>
