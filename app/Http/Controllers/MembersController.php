@@ -97,5 +97,12 @@ class MembersController extends Controller
 		$member -> delete();
 		return redirect('members/index');
 		*/
-    }			
+    }	
+
+    public function assign($familyId,$memberId)
+    {
+		$member = Member::whereId($memberId)->firstOrFail();
+		$member -> family_id = $familyId;
+		$member -> save();
+    }						
 }

@@ -52,7 +52,14 @@ class HousesController extends Controller
 	
     public function show($id)
     {
-
+		$house = House::whereId($id)->firstOrFail();
+		$members = $house -> members();
+		foreach($members as $member)
+		{
+			$families[$member -> family_id][] = $member;
+		}
+		ksort($families);
+		return view('houses.show', compact('house','members','families'));
     }	
 	
     public function edit($id)
@@ -92,4 +99,16 @@ class HousesController extends Controller
 		return redirect('members/index');
 		*/
     }			
+	
+    public function assign($id)
+    {
+		$house = House::whereId($id)->firstOrFail();
+		$members = $house -> members();
+		foreach($members as $member)
+		{
+			$families[$member -> family_id][] = $member;
+		}
+		ksort($families);
+		return view('houses.assign', compact('house','members','families'));
+    }				
 }

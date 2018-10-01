@@ -11,11 +11,6 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-
 Route::get('members/create', 'MembersController@create');
 Route::post('members/create', 'MembersController@insert');
 Route::get('members/index', 'MembersController@index');
@@ -28,10 +23,13 @@ Route::get('houses/create', 'HousesController@create');
 Route::post('houses/create', 'HousesController@insert');
 Route::get('houses/index', 'HousesController@index');
 Route::get('/house/{id?}', 'HousesController@show');
+Route::get('/house/assign/{id?}', 'HousesController@assign');
+Route::get('/family/member/assign/{familyId}/{memberId}', 'MembersController@assign');
 Route::get('/house/{id?}/edit','HousesController@edit');
 Route::post('/house/{id?}/edit','HousesController@update');
 Route::post('/house/{id?}/delete','HousesController@destroy');
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'HomeController@home')->name('home');
+Route::get('/', 'HomeController@home')->name('home');

@@ -10,6 +10,6 @@ class House extends Model
 	
 	public function members()
 	{
-		return $this->hasMany('App\Member', 'id');
+		return $this->hasMany('App\Member')->get();
 	}	
 }

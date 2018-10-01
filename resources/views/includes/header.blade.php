@@ -34,7 +34,11 @@
   </div>
   <div class="top-menu">
 	<ul class="nav pull-right top-menu">
-	  <li><a class="logout" href="login.html">Logout</a></li>
+	  <li><a class="logout" <a href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();"> Logout</a>
+			<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+				{{ csrf_field() }}
+			</form>
+	  </li>
 	</ul>
   </div>
 </header>
