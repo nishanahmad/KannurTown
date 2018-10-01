@@ -105,4 +105,9 @@ class MembersController extends Controller
 		$member -> family_id = $familyId;
 		$member -> save();
     }						
+	
+    public function dashio()
+    {
+		return view('dashio.index');
+    }							
 }

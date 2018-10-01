@@ -5,7 +5,7 @@
 <h3 style="margin-left:1.5em">{{$house -> address}}</h3>
 @foreach ($families as $members)
 <div class="row mt">
-  <div class="col-lg-12">
+  <!--div class="col-lg-12"-->
 	<div class="content-panel">
 	  <h4><i class="fa fa-angle-right"></i>&nbsp;&nbsp;Family {{ $members[0] -> family_id }}</h4>
 	  <section id="unseen">
@@ -45,7 +45,7 @@
 		</table>
 	  </section>
 	</div>
-  </div>
+  </div-->
 </div>
 @endforeach
 </section>
