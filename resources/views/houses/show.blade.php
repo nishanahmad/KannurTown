@@ -51,6 +51,8 @@
 <br/>
 <a  href="/members/create/" class="btn btn-theme03"><i class="fa fa-user"></i>  New Member</a>&nbsp;&nbsp;
 <a  href="/house/assign/{{ $house -> id }}" class="btn btn-theme"><i class="fa fa-exchange"></i>  ReAssign Family</a>
-<br/><br/>
+<br/><br/><br/>
+<a href="/houses/index" class="btn btn-primary"><i class="fa fa-long-arrow-left"></i>&nbsp;Back to list</a>
+<br/><br/><br/><br/>
 </div>
 @stop
