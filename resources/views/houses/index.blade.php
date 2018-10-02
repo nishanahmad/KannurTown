@@ -11,6 +11,7 @@
 					  <th style="width:7%;">
                       <th style="width:20%;">House Name</th>
                       <th>Address</th>
+					  <th>Family Head</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -19,6 +20,11 @@
 					  <td align="center"><a href="{{ url('house/'.$house->id) }}" class="btn btn-theme" style="padding: 0px 15px;font-size: 13px;">View</a></td>
                       <td>{{ $house -> name }}</td>
                       <td>{{ $house -> address }}</td>
+					  @if(isset($houseMap[$house->id]))
+						<td>{{ $houseMap[$house->id] }}</td>
+					 @else
+						 <td></td>
+					 @endif
                     </tr>
 				  @endforeach	
                   </tbody>

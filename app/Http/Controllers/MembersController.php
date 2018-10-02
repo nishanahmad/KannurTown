@@ -19,10 +19,7 @@ class MembersController extends Controller
 
     public function index()
     {
-/* 		if(Auth::user()->admin)
-			$members = Member::all();
-		else
-			$members = Member::where('jamath_id',Auth::user()->jamath_id)->get();
+		/*
 		$jamaths = Member::with('jamath');		
 		return view('members.index',compact('members','jamaths')); */
     }
@@ -37,18 +34,6 @@ class MembersController extends Controller
 /*         $member = new Member(array(
 			'code' => $request->get('code'),		
             'name' => $request->get('name'),
-			'address1' => $request->get('address1'),			
-			'address2' => $request->get('address2'),
-			'place' => $request->get('place'),
-			'district' => $request->get('district'),
-			'pin_code' => $request->get('pin_code'),
-			'rms' => $request->get('rms'),
-			'landline' => $request->get('landline'),
-			'mobile' => $request->get('mobile'),
-			'email' => $request->get('email'),			
-			'ref_name' => $request->get('ref_name'),			
-			'ref_phone' => $request->get('ref_phone'),			
-			'jamath_id' => $request->get('jamath_id')
         ));
 			
 		$member->save();
@@ -58,7 +43,8 @@ class MembersController extends Controller
 	
     public function show($id)
     {
-
+		$member = Member::whereId($id)->firstOrFail();
+		return view('members.show', compact('member'));
     }	
 	
     public function edit($id)
@@ -73,18 +59,6 @@ class MembersController extends Controller
 /* 		$member = Member::whereId($id)->firstOrFail();
 		$member->code = $request->get('code');
 		$member->name = $request->get('name');
-		$member->address1 = $request->get('address1');
-		$member->address2 = $request->get('address2');
-		$member->place = $request->get('place');
-		$member->district = $request->get('district');
-		$member->pin_code = $request->get('pin_code');
-		$member->rms = $request->get('rms');
-		$member->landline = $request->get('landline');
-		$member->mobile = $request->get('mobile');
-		$member->email = $request->get('email');			
-		$member->ref_name = $request->get('ref_name');
-		$member->ref_phone = $request->get('ref_phone');
-		$member->jamath_id = $request->get('jamath_id');		
 
 		$member->save();
 		return redirect()->back()->with('status', 'Member has been successfully updated!'); */
@@ -99,15 +73,28 @@ class MembersController extends Controller
 		*/
     }	
 
-    public function assign($familyId,$memberId)
+    public function assign($memberId,$familyId)
     {
 		$member = Member::whereId($memberId)->firstOrFail();
 		$member -> family_id = $familyId;
 		$member -> save();
     }						
 	
-    public function dashio()
+    public function reorder($memberId,$order)
     {
-		return view('dashio.index');
+		$member = Member::whereId($memberId)->firstOrFail();
+		
+		$members = Member::where('order','>=', $order)
+					->where('house_id',$member -> house_id)
+					->where('family_id',$member -> family_id)
+					->get();			
+		foreach($members as $mem)
+		{
+			$mem -> order = $mem -> order + 1;
+			$mem -> save();
+		}
+		
+		$member -> order = $order;
+		$member -> save();
     }							
 }

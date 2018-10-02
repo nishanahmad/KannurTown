@@ -36,22 +36,32 @@ ul {
 </style>
 <script>
 	$(function() {
-		var url = '/family/member/assign';
+		var memberUrl = '/member/family';
+		var orderUrl = '/member/order';
 		$('ul[id^="sort"]').sortable(
 				{
 					connectWith : ".sortable",
 					receive : function(e, ui) {
-						var familyId = $(ui.item).parent(".sortable").data(
-								"status-id");
-						var memberId = $(ui.item).data("task-id");
+						var memberId = $(ui.item).data("member-id");
+						var familyId = $(ui.item).parent(".sortable").data("family-id");
 						$.ajax({
-							url : url + '/' + familyId + '/'
-									+ memberId,
+							url : memberUrl + '/' + memberId + '/'
+									+ familyId,
 							success : function(response) {
 							}
 						});
-					}
-
+					},
+					stop: function(event, ui) {
+						var memberId = $(ui.item).data("member-id");
+						var order = ui.item.index();
+						order = order + 1;
+						$.ajax({
+							url : orderUrl + '/' + memberId + '/'
+									+ order,
+							success : function(response) {
+							}
+						});						
+					}					
 				}).disableSelection();
 	});
 </script>
@@ -64,10 +74,10 @@ ul {
 			<h5>{{ 'FAMILY '.$i }}</h5>
 		  </div>
 		  <div align="center">
-			<ul class="sortable ui-sortable" id="{{ 'sort'.$i }}" data-status-id="{{ $i }}">
+			<ul class="sortable ui-sortable" id="{{ 'sort'.$i }}" data-family-id="{{ $i }}">
 				@if(! empty($families[$i])) 
-					@foreach ($families[$i] as $member) 																									
-						<li class="text-row ui-sortable-handle" data-task-id="{{ $member -> id }}">{{ $member -> name }}</li>											
+					@foreach ($families[$i] as $member) 																					
+						<li class="text-row ui-sortable-handle" data-member-id="{{ $member -> id }}" >{{ $member -> name }}</li>											
 					@endforeach
 				@endif
 			</ul>			

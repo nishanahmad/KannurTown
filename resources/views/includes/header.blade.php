@@ -1,6 +1,8 @@
 <header class="header black-bg">
-  
-  <a href="index.html" class="logo"><b>Kannur<span>Town</span></b></a>
+  <div class="sidebar-toggle-box">
+	<div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
+  </div>  
+  <a href="{{ url('home') }}" class="logo"><b>Kannur<span>Town</span></b></a>
 
   
   <div class="nav notify-row" id="top_menu">

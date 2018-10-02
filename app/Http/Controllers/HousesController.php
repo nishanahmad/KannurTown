@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
 use App\House;
+use App\Member;
 
 use Illuminate\Http\Request;
 
@@ -17,8 +18,17 @@ class HousesController extends Controller
     public function index()
     {
 		$houses = House::all();
-
-		return view('houses.index',compact('houses')); 
+		$members = Member::where('order',1) -> get();
+		$houseMap = array();
+		foreach($members as $member)
+		{
+			if(isset($houseMap[$member -> house_id]))
+				$houseMap[$member -> house_id] = $houseMap[$member -> house_id] .', '.$member->name;
+			else
+				$houseMap[$member -> house_id] = $member->name;
+		}
+		
+		return view('houses.index',compact('houses','houseMap')); 
     }    
 	
     public function create()
@@ -30,19 +40,7 @@ class HousesController extends Controller
     {
 /*         $member = new Member(array(
 			'code' => $request->get('code'),		
-            'name' => $request->get('name'),
-			'address1' => $request->get('address1'),			
-			'address2' => $request->get('address2'),
-			'place' => $request->get('place'),
-			'district' => $request->get('district'),
-			'pin_code' => $request->get('pin_code'),
-			'rms' => $request->get('rms'),
-			'landline' => $request->get('landline'),
-			'mobile' => $request->get('mobile'),
-			'email' => $request->get('email'),			
-			'ref_name' => $request->get('ref_name'),			
-			'ref_phone' => $request->get('ref_phone'),			
-			'jamath_id' => $request->get('jamath_id')
+            'name' => $request->get('name')
         ));
 			
 		$member->save();
@@ -53,12 +51,22 @@ class HousesController extends Controller
     public function show($id)
     {
 		$house = House::whereId($id)->firstOrFail();
-		$members = $house -> members();
+		$members = $house -> members() -> sortBy('order');
 		foreach($members as $member)
 		{
 			$families[$member -> family_id][] = $member;
 		}
 		ksort($families);
+		foreach($families as $id => $members)
+		{
+			$order = 1;
+			foreach($members as $member)
+			{
+				$member -> order = $order;
+				$member -> save();
+				$order++;						
+			}			
+		}				
 		return view('houses.show', compact('house','members','families'));
     }	
 	
@@ -74,18 +82,6 @@ class HousesController extends Controller
 /* 		$member = Member::whereId($id)->firstOrFail();
 		$member->code = $request->get('code');
 		$member->name = $request->get('name');
-		$member->address1 = $request->get('address1');
-		$member->address2 = $request->get('address2');
-		$member->place = $request->get('place');
-		$member->district = $request->get('district');
-		$member->pin_code = $request->get('pin_code');
-		$member->rms = $request->get('rms');
-		$member->landline = $request->get('landline');
-		$member->mobile = $request->get('mobile');
-		$member->email = $request->get('email');			
-		$member->ref_name = $request->get('ref_name');
-		$member->ref_phone = $request->get('ref_phone');
-		$member->jamath_id = $request->get('jamath_id');		
 
 		$member->save();
 		return redirect()->back()->with('status', 'Member has been successfully updated!'); */
@@ -103,7 +99,7 @@ class HousesController extends Controller
     public function assign($id)
     {
 		$house = House::whereId($id)->firstOrFail();
-		$members = $house -> members();
+		$members = $house -> members() -> sortBy('order');
 		foreach($members as $member)
 		{
 			$families[$member -> family_id][] = $member;
