@@ -20,6 +20,7 @@ Route::post('/member/{id?}/edit','MembersController@update');
 Route::post('/member/{id?}/delete','MembersController@destroy');
 Route::get('/member/order/{memberId}/{order}', 'MembersController@reorder');
 Route::get('/member/family/{memberId}/{familyId}', 'MembersController@assign');
+Route::get('tj/index/{year}', 'TJController@index');
 
 Route::get('houses/create', 'HousesController@create');
 Route::post('houses/create', 'HousesController@insert');
