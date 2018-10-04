@@ -12,7 +12,7 @@
 			  <canvas id="serverstatus01" height="120" width="120"></canvas>
 			  <div class="row">
 				<div class="col-sm-6 col-xs-6 goleft">
-				  <p>Usage<br/>Increase:</p>
+				  <p>Usage<br/>Increase</p>
 				</div>
 				<div class="col-sm-6 col-xs-6">
 				  <h2>21%</h2>
