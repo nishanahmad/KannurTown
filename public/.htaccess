@@ -6,8 +6,10 @@
     RewriteEngine On
 	
 	# ssl redirect
-	RewriteCond %{HTTP:X-Forwarded-Proto} !https
-	RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]	
+	RewriteCond %{HTTPS} off [OR]
+	RewriteCond %{HTTP_HOST} ^www\. [NC]
+	RewriteCond %{HTTP_HOST} ^(?:www\.)?(.+)$ [NC]
+	RewriteRule ^ https://%1%{REQUEST_URI} [L,NE,R=301]
 	
     # Redirect Trailing Slashes If Not A Folder...
     RewriteCond %{REQUEST_FILENAME} !-d
