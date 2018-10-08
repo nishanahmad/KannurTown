@@ -1,5 +1,10 @@
 @extends('layouts.default')
 @section('content')
+		@if (session('status'))
+		<script>	
+			$.toaster({ priority : 'success', title : 'Success', message : '{{session("status")}}' });
+		</script>
+		@endif
         <div class="row mt">
           <div class="col-lg-12">
             <div class="content-panel">
@@ -18,7 +23,7 @@
                   <tbody>
 				  @foreach($houses as $house)
                     <tr>
-					  <td align="center"><a href="{{ url('house/'.$house->id) }}" class="btn btn-theme" style="padding: 0px 15px;font-size: 13px;">View</a></td>
+					  <td align="center"><a href="{{ url('houses/'.$house->id) }}" class="btn btn-theme" style="padding: 0px 15px;font-size: 13px;">View</a></td>
                       <td>{{ $house -> name }}</td>
                       <td>{{ $house -> address }}</td>
 					  @if(isset($houseMap[$house->id]))

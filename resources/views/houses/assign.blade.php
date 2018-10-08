@@ -88,6 +88,6 @@ ul {
 </div>
 </section>
 <div align="center">
-	<a href="/house/{{$house->id}}" class="btn btn-primary"><i class="fa fa-long-arrow-left"></i>&nbsp;Go Back</a>
+	<a href="/houses/{{$house->id}}" class="btn btn-primary"><i class="fa fa-long-arrow-left"></i>&nbsp;Go Back</a>
 </div>
 @stop

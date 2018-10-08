@@ -9,24 +9,24 @@
 		  </a>
 	  </li>	  	  
 	  <li class="sub-menu">
-		<a href="javascript:;" class="{{ Request::is('house*') ? 'active' : '' }}">
+		<a href="javascript:;" class="{{ Request::is('houses*') ? 'active' : '' }}">
 		  <i class="fa fa-home"></i>
 		  <span>Houses</span>
 		  </a>
 		<ul class="sub">
-		  <li class="{{ Request::is('houses/index') ? 'active' : '' }}"><a href="{{ url('houses/index') }}">List Houses</a></li>
+		  <li class="{{ Request::is('houses') ? 'active' : '' }}"><a href="{{ url('houses') }}">List Houses</a></li>
 		  <li><a href="{{ url('houses/create') }}">New House</a></li>
 		</ul>
 	  </li>
 	  <li class="sub-menu">
-		<a href="javascript:;" class="{{ Request::is('member*') ? 'active' : '' }}">
+		<a href="javascript:;" class="{{ Request::is('members*') ? 'active' : '' }}">
 		  <i class="fa fa-user"></i>
 		  <span>Members</span>
 		  </a>
 		<ul class="sub">
-		  <li><a href="{{ url('members/index') }}">All Members</a></li>
-		  <li><a href="{{ url('tj/index') }}">Thahrik-E-Jadid Members</a></li>
-		  <li><a href="{{ url('wj/index') }}">Waqf-E-Jadid Members</a></li>
+		  <li><a href="{{ url('members/') }}">All Members</a></li>
+		  <li><a href="{{ url('tj/') }}">Thahrik-E-Jadid Members</a></li>
+		  <li><a href="{{ url('wj/') }}">Waqf-E-Jadid Members</a></li>
 		</ul>
 	  </li>
 	</ul>

@@ -56,29 +56,36 @@ class HousesController extends Controller
 		{
 			$families[$member -> family_id][] = $member;
 		}
-		ksort($families);
-		foreach($families as $id => $members)
+		if(isset($families))
 		{
-			$order = 1;
-			foreach($members as $member)
+			ksort($families);
+			foreach($families as $id => $members)
 			{
-				$member -> order = $order;
-				$member -> save();
-				$order++;						
-			}			
-		}				
+				$order = 1;
+				foreach($members as $member)
+				{
+					$member -> order = $order;
+					$member -> save();
+					$order++;						
+				}			
+			}							
+		}
+
 		return view('houses.show', compact('house','members','families'));
     }	
 	
     public function edit($id)
     {
+		/*
 		$member = Member::whereId($id)->firstOrFail();
 		$jamathList = Jamath::all();
 		return view('members.edit', compact('member','jamathList'));
+		*/
     }		
 	
     public function update($id , MemberFormRequest $request)
     {
+		echo 'Hello';
 /* 		$member = Member::whereId($id)->firstOrFail();
 		$member->code = $request->get('code');
 		$member->name = $request->get('name');
@@ -89,11 +96,16 @@ class HousesController extends Controller
 	
     public function destroy($id)
     {
-		/*
-		$member = Member::whereId($id)->firstOrFail();
-		$member -> delete();
-		return redirect('members/index');
-		*/
+		$members = Member::where('house_id', $id)->get();
+		if($members -> count() > 0)
+			return redirect()->back()->with('error', 'Members found for this house. Unable to perform delete operation!');
+		else
+		{
+			$house = House::whereId($id)->firstOrFail();
+			$houseName = $house -> name;
+			$house -> delete();
+			return redirect('houses')->with('status', $houseName . ' was deleted successfully !!!');
+		}
     }			
 	
     public function assign($id)
