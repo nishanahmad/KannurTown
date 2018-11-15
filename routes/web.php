@@ -11,10 +11,13 @@
 |
 */
 Route::resource('members', 'MembersController');
-Route::resource('houses', 'HousesController');
-
 Route::get('/member/order/{memberId}/{order}', 'MembersController@reorder');
 Route::get('/member/family/{memberId}/{familyId}', 'MembersController@assign');
+
+Route::resource('houses', 'HousesController');
+Route::post('/houses/updateName','HousesController@updateName');
+Route::post('/houses/updateAddress','HousesController@updateAddress');
+
 Route::get('tj/index/{year}', 'TJController@index');
 Route::get('/houses/assign/{id?}', 'HousesController@assign');
 

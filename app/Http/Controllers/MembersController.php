@@ -16,9 +16,9 @@ class MembersController extends Controller
 
     public function index()
     {
-		/*
+		
 		$jamaths = Member::with('jamath');		
-		return view('members.index',compact('members','jamaths')); */
+		return view('members.index',compact('members','jamaths')); 
     }
 	
     public function create()

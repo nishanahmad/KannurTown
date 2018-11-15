@@ -33,20 +33,25 @@ class HousesController extends Controller
 	
     public function create()
     {
-		return view('members.create');
+		return view('houses.create');
     }
 	
-    public function insert(MemberFormRequest $request)
+    public function store(Request $request)
     {
-/*         $member = new Member(array(
-			'code' => $request->get('code'),		
-            'name' => $request->get('name')
+         $house = new House(array(
+            'name' => $request->get('name'),
+			'address' => $request->get('address')
+			//'test' => 'hello'
         ));
-			
-		$member->save();
-
-        return redirect()->back()->with('status', 'Member has been created!');
- */    }
+		
+		try{
+			$house->save();
+			return redirect('houses/'.$house->id)->with('success', 'House succesfully created !!!');			
+		}	
+		catch(\Exception $e){
+			return redirect()-> back() ->with('error', 'Some error happened. Please contact admin with the following message : '.$e->getMessage());			
+		}
+    }
 	
     public function show($id)
     {
@@ -83,16 +88,40 @@ class HousesController extends Controller
 		*/
     }		
 	
-    public function update($id , MemberFormRequest $request)
+    public function update($id , $request)
     {
 		echo 'Hello';
-/* 		$member = Member::whereId($id)->firstOrFail();
-		$member->code = $request->get('code');
-		$member->name = $request->get('name');
-
-		$member->save();
-		return redirect()->back()->with('status', 'Member has been successfully updated!'); */
     }			
+
+	public function updateName(Request $request)
+	{
+		$house = House::whereId($request -> id)->firstOrFail();
+		$house -> name = $request->name;
+		try{
+			$house -> save();
+			$response = array('status' => 'success');			
+		}
+		catch(Exception $e){
+			$response = array('status' => 'fail');			
+		}
+
+		return response()->json($response); 
+	}	
+	
+	public function updateAddress(Request $request)
+	{
+		$house = House::whereId($request -> id)->firstOrFail();
+		$house -> address = $request->address;
+		try{
+			$house -> save();
+			$response = array('status' => 'success');			
+		}
+		catch(Exception $e){
+			$response = array('status' => 'fail');			
+		}
+
+		return response()->json($response); 
+	}		
 	
     public function destroy($id)
     {

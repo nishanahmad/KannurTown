@@ -26,7 +26,7 @@
 <script type="text/javascript" src="{{ asset('js/gritter-conf.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/jquery-ui.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/bootbox.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('js/jquery.toaster.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/bootstrapAlert.min.js') }}"></script>
 <script class="include" type="text/javascript" src="{{ asset('js/jquery.dcjqaccordion.2.7.js') }}"></script>
 <style>
 body{

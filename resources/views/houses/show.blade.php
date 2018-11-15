@@ -1,6 +1,5 @@
 @extends('layouts.default')
 @section('content')
-<section class="wrapper">
 @if (session('error'))
 <script>	
 	bootbox.alert({
@@ -8,8 +7,56 @@
 	});
 </script>
 @endif
-	<h2><i class="fa fa-home"></i>&nbsp;{{$house -> name}}</h2>
-	<h3 style="margin-left:1.5em">{{$house -> address}}</h3>
+@if (session('success'))
+<script>	
+	BootstrapAlert.success({
+		title: "Success!",
+		message: '{{ session("success") }}'
+	});
+</script>
+@endif    
+<meta name="csrf-token" content="{{ csrf_token() }}" />
+<script>
+	$(document).ready(function(){
+		var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+		$(".changeName").click(function(){
+			bootbox.prompt("Enter the new name for this house", function(result){
+				$.ajax({
+					url: '/houses/updateName',
+					type: 'POST',
+					data: {_token: CSRF_TOKEN, name:result, id:{{$house -> id }} },
+					dataType: 'JSON',
+					success: function (data) {
+						if(data.status == 'success')
+							$("#name").load(" #name");
+						else
+							bootbox.alert('Cannot update address. Please contact admin !!!');						
+					}
+				});				
+			});
+		});
+		
+		$(".changeAddress").click(function(){
+			bootbox.prompt("Enter the new address for this house", function(result){
+				$.ajax({
+					url: '/houses/updateAddress',
+					type: 'POST',
+					data: {_token: CSRF_TOKEN, address:result, id:{{$house -> id }} },
+					dataType: 'JSON',
+					success: function (data) {
+						if(data.status == 'success')
+							$("#address").load(" #address");
+						else
+							bootbox.alert('Cannot update address. Please contact admin !!!');
+					}
+				});				
+			});
+		});		
+   });    
+</script>
+<section class="wrapper">
+	<h2 style="color:black;"><i class="fa fa-home"></i>&nbsp;<label id="name">{{$house -> name}}</label>&nbsp;&nbsp;&nbsp;<a href="#" class="changeName"><i class="fa fa-pencil" style="color:black;"></i></a></h2>
+	<h3 style="margin-left:1.5em;color:black;"><label id="address">{{$house -> address}}</label>&nbsp;&nbsp;&nbsp;<a href="#" class="changeAddress"><i class="fa fa-pencil" style="color:black;"></i></a></h3>
 	@if (isset($families))
 	@foreach ($families as $members)
 		<div class="row mt">
@@ -68,9 +115,11 @@
 	</form>
 </div>
 <div class="clearfix"></div>
-<br/><br/><br/>
-<a href="/houses" class="btn btn-primary"><i class="fa fa-long-arrow-left"></i>&nbsp;Back to list</a>
-<br/><br/><br/><br/>
+@if (isset($families))
+	<br/><br/><br/>
+	<a href="/houses" class="btn btn-primary"><i class="fa fa-long-arrow-left"></i>&nbsp;Back to list</a>
+	<br/><br/><br/>	
+@endif	
 <script>
 $('#delete').click(function () {
 	event.preventDefault();

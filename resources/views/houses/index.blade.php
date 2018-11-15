@@ -1,10 +1,5 @@
 @extends('layouts.default')
 @section('content')
-		@if (session('status'))
-		<script>	
-			$.toaster({ priority : 'success', title : 'Success', message : '{{session("status")}}' });
-		</script>
-		@endif
         <div class="row mt">
           <div class="col-lg-12">
             <div class="content-panel">
