@@ -18,12 +18,12 @@ class HousesController extends Controller
     public function index()
     {
 		$houses = House::all();
-		$members = Member::where('order',1) -> get();
+		$members = Member::all();
 		$houseMap = array();
 		foreach($members as $member)
 		{
 			if(isset($houseMap[$member -> house_id]))
-				$houseMap[$member -> house_id] = $houseMap[$member -> house_id] .', '.$member->name;
+				$houseMap[$member -> house_id] = $houseMap[$member -> house_id] .'<br/>'.$member->name;
 			else
 				$houseMap[$member -> house_id] = $member->name;
 		}
