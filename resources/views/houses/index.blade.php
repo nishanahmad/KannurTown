@@ -22,9 +22,9 @@
                       <td>{{ $house -> name }}</td>
                       <td>{{ $house -> address }}</td>
 					  @if(isset($houseMap[$house->id]))
-						<td>{{ $houseMap[$house->id] }}<br/></td>
+						<td>{{ $houseMap[$house->id] }}</td>
 					 @else
-						 <td><br/></td>
+						 <td></td>
 					 @endif
                     </tr>
 				  @endforeach	
